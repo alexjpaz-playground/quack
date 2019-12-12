@@ -1,3 +1,92 @@
+<!DOCTYPE html>
 <html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-25975548-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-25975548-3');
+  </script>
+  <body>
   <title>quack</title>
+  <div class='flex-container'>
+    <div class='flex-center noselect'>
+      <div class='duck'>
+        <img class='duck-1' src='sprites/white-duck.frame.1.png' />
+        <img class='duck-2' src='sprites/white-duck.frame.2.png' />
+      </div>
+    </div>
+  </div>
+  <style>
+    .duck {
+      width: 100%;
+    }
+
+    .duck img {
+      image-rendering: pixelated;
+      width: 100%;
+      position: relative;
+    }
+
+    .duck.active .duck-1 { display: none; }
+    .duck.active .duck-2 { display: block; }
+    .duck .duck-2 { display: none; }
+    .duck .duck-1 { display: block; }
+
+    .noselect {
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+      -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+      user-select: none; /* Non-prefixed version, currently
+                            supported by Chrome, Opera and Firefox */
+    }
+
+    body,html {
+      padding: 0;
+      margin: 0;
+      font-family: sans-serif;
+      height: 100%;
+    }
+
+    .flex-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .flex-center {
+      max-width: 50%;
+      flex: 1;
+    }
+  </style>
+  <script>
+    var duck = document.querySelector('.duck');
+
+    var downEvent = 'ontouchstart' in document.documentElement ? 'touchstart' : 'mousedown';
+
+    document.addEventListener(downEvent, function(e) {
+      duck.classList.add('active');
+      gtag('event', 'quack');
+
+      var quackSound = new Audio();
+      quackSound.src = "./sounds/quack-loud.wav"; // TODO - some browsers don't like mp3
+      quackSound.play();
+    });
+
+    var upEvent = 'ontouchend' in document.documentElement ? 'touchend' : 'mouseup';
+
+    document.addEventListener(upEvent, function() {
+      duck.classList.remove('active');
+    });
+  </script>
+  </body>
 </html>
